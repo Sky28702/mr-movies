@@ -41,3 +41,14 @@
 .read-the-docs {
   color: #888;
 }
+:root {
+  --font-rubik: "Rubik", sans-serif;
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+body {
+  font-family: var(--font-rubik);
+
+  margin: 0 auto;
+}
