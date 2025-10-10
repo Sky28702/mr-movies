@@ -1,4 +1,6 @@
 import { useState } from "react";
+import Hero from "./components/Hero";
+import Search from "./components/Search";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 
@@ -8,8 +10,9 @@ function App() {
   const [count, setCount] = useState(0);
 
   return (
-    <main>
-      <b className="text-blue-200 text-9xl"> tailwind</b>
+    <main className="text-white">
+      <Hero />
+      <Search />
     </main>
   );
 }
