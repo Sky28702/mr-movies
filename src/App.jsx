@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Hero from "./components/Hero";
 import Search from "./components/Search";
+import Card from "./components/Card";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 
@@ -13,6 +14,7 @@ function App() {
     <main className="text-white">
       <Hero />
       <Search />
+      <Card />
     </main>
   );
 }
