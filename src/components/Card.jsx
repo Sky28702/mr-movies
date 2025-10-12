@@ -20,7 +20,9 @@ function Card(props) {
             <span className="text-amber-300">
               <IconStarFilled />
             </span>
-            <span className="font-semibold">&nbsp;{props.rating}</span>
+            <span className="font-semibold  ">
+              &nbsp;{Math.round(props.rating * 10) / 10}
+            </span>
           </div>
           {/* // ! LANGUAGE */}
           <div className="text-slate-500">{props.language}</div>

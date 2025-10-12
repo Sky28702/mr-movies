@@ -14,6 +14,7 @@ function App() {
   let [movieCard, setMovieCard] = useState([]);
   let [page, setPage] = useState(1);
   let [filter, setFilter] = useState("popular");
+  const [emoji, setEmoji] = useState("");
   console.log(filter);
   function selectedValue(value) {
     setFilter(value);
@@ -23,6 +24,13 @@ function App() {
 
   useEffect(() => {
     getMovies(page, setMovieCard, filter);
+    if (filter === "popular") {
+      setEmoji("🔥"); // fire emoji
+    } else if (filter === "upcoming") {
+      setEmoji("🎬"); // clapperboard emoji
+    } else {
+      setEmoji("🌟"); // star emoji
+    }
   }, [page, filter]);
 
   function showMore() {
@@ -30,6 +38,14 @@ function App() {
       setPage(page + 1);
     }
   }
+
+  // if (filter === "popular") {
+  //   setEmoji("&#128293;");
+  // } else if (filter === "upcoming") {
+  //   setEmoji("&#127916;");
+  // } else {
+  //   setEmoji("&#127775;");
+  // }
 
   return (
     <main className="text-white">
@@ -87,8 +103,10 @@ function App() {
         <Filter click={selectedValue} />
       </div>
 
-      <h1 className="  text-white mb-4 p-4 font-bold text-3xl">
-        Popular&#128293;
+      <h1 className="  text-white mb-4 p-4 font-bold text-3xl capitalize">
+        {filter === "top_rated" ? "Top Rated" : filter}
+
+        {emoji}
       </h1>
       <div
         className="grid grid-cols-4 gap-4 mb-6
