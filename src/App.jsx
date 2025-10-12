@@ -17,11 +17,13 @@ function App() {
   console.log(filter);
   function selectedValue(value) {
     setFilter(value);
+    setPage(1);
+    setMovieCard([]);
   }
 
   useEffect(() => {
     getMovies(page, setMovieCard, filter);
-  }, [page]);
+  }, [page, filter]);
 
   function showMore() {
     if (page < page + 1) {
