@@ -28,9 +28,14 @@ function App() {
   // }, []);
   let [movieCard, setMovieCard] = useState([]);
   let [page, setPage] = useState(1);
+  let [filter, setFilter] = useState("popular");
+  console.log(filter);
+  function selectedValue(value) {
+    setFilter(value);
+  }
 
   useEffect(() => {
-    getMovies(page, setMovieCard);
+    getMovies(page, setMovieCard, filter);
   }, [page]);
 
   function showMore() {
@@ -92,7 +97,7 @@ function App() {
       </section>
       <div className="flex flex-row items-center justify-between">
         <Search />
-        <Filter />
+        <Filter click={selectedValue(value)} />
       </div>
 
       <h1 className="  text-white mb-4 p-4 font-bold text-3xl">
