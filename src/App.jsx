@@ -11,21 +11,6 @@ import "./App.css";
 import axios from "axios";
 
 function App() {
-  // useEffect(() => {
-  //   async function memberView() {
-  //     try {
-  //       const res = await axios.get(
-  //         `http://localhost:8000/members/view/${params.id}`
-  //       );
-  //       console.log(res.data.data);
-
-  //       setAllMembers(res.data.data);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   }
-  //   memberView();
-  // }, []);
   let [movieCard, setMovieCard] = useState([]);
   let [page, setPage] = useState(1);
   let [filter, setFilter] = useState("popular");
@@ -97,7 +82,7 @@ function App() {
       </section>
       <div className="flex flex-row items-center justify-between">
         <Search />
-        <Filter click={selectedValue(value)} />
+        <Filter click={selectedValue} />
       </div>
 
       <h1 className="  text-white mb-4 p-4 font-bold text-3xl">
