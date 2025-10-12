@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import { getMovies } from "./api/movies";
 import Search from "./components/Search";
 import Card from "./components/Card";
 import Filter from "./components/Filter";
@@ -30,18 +30,7 @@ function App() {
   let [page, setPage] = useState(1);
 
   useEffect(() => {
-    async function getMovies() {
-      try {
-        const res = await axios.get(
-          `https://api.themoviedb.org/3/movie/popular?api_key=434707e1ce537ca1f4315bddd0839d57&language=en-US&page=${page}`
-        );
-        console.log("movie data : " + res.data.results);
-        setMovieCard((prevMovies) => [...prevMovies, ...res.data.results]);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-    getMovies();
+    getMovies(page, setMovieCard);
   }, [page]);
 
   function showMore() {
