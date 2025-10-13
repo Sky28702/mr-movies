@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getMovies } from "./api/movies";
+import { getMovies, searchMovies } from "./api/movies";
 import Search from "./components/Search";
 import Card from "./components/Card";
 import Filter from "./components/Filter";
@@ -14,8 +14,15 @@ function App() {
   let [movieCard, setMovieCard] = useState([]);
   let [page, setPage] = useState(1);
   let [filter, setFilter] = useState("popular");
+  let [searchKey, setSearchKey] = useState("");
+  let [searchedData, setSearchdData] = useState([]);
   const [emoji, setEmoji] = useState("");
   console.log(filter);
+
+  function searchValue(value) {
+    setSearchKey(value);
+  }
+
   function selectedValue(value) {
     setFilter(value);
     setPage(1);
@@ -24,6 +31,7 @@ function App() {
 
   useEffect(() => {
     getMovies(page, setMovieCard, filter);
+    searchMovies(setSearchdData, searchKey);
     if (filter === "popular") {
       setEmoji("🔥"); // fire emoji
     } else if (filter === "upcoming") {
@@ -31,21 +39,13 @@ function App() {
     } else {
       setEmoji("🌟"); // star emoji
     }
-  }, [page, filter]);
+  }, [page, filter, searchKey]);
 
   function showMore() {
     if (page < page + 1) {
       setPage(page + 1);
     }
   }
-
-  // if (filter === "popular") {
-  //   setEmoji("&#128293;");
-  // } else if (filter === "upcoming") {
-  //   setEmoji("&#127916;");
-  // } else {
-  //   setEmoji("&#127775;");
-  // }
 
   return (
     <main className="text-white">
@@ -99,7 +99,8 @@ function App() {
         </div>
       </section>
       <div className="flex flex-row items-center justify-between">
-        <Search />
+        <Search click={searchValue} />
+
         <Filter click={selectedValue} />
       </div>
 
@@ -108,6 +109,24 @@ function App() {
 
         {emoji}
       </h1>
+
+      {/* for search babes */}
+      <div
+        className="grid grid-cols-4 gap-4 mb-6
+      "
+      >
+        {searchedData.map((movie) => (
+          <Card
+            key={movie.id}
+            title={movie.original_title}
+            language={movie.original_language}
+            image={movie.poster_path}
+            rating={movie.vote_average}
+            time={movie.release_date.split(`-`)[0]}
+          />
+        ))}
+      </div>
+
       <div
         className="grid grid-cols-4 gap-4 mb-6
       "
@@ -119,10 +138,11 @@ function App() {
             language={movie.original_language}
             image={movie.poster_path}
             rating={movie.vote_average}
-            time={movie.release_date}
+            time={movie.release_date.split(`-`)[0]}
           />
         ))}
       </div>
+
       <div className=" text-2xl text-center mb-4">
         <button onClick={showMore} className="cursor-pointer">
           Show More....

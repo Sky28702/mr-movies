@@ -1,5 +1,5 @@
 import { IconSearch } from "@tabler/icons-react";
-function Search() {
+function Search({ click }) {
   return (
     <section className="text-black p-4 mb-4">
       <form>
@@ -8,6 +8,7 @@ function Search() {
             <IconSearch stroke={2} />
           </span>
           <input
+            onChange={(e) => click(e.target.value)}
             type="text"
             className=" md:w-full w-50 p-2 h-14 rounded-4xl focus:outline-none text-2xl  "
             placeholder="Search.."
