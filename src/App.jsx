@@ -3,12 +3,12 @@ import { getMovies, searchMovies } from "./api/movies";
 import Search from "./components/Search";
 import Card from "./components/Card";
 import Filter from "./components/Filter";
+import { useDebounce } from "react-use";
 
 import { IconPlayerPlayFilled } from "@tabler/icons-react";
 import { IconDownload } from "@tabler/icons-react";
 
 import "./App.css";
-import axios from "axios";
 
 function App() {
   let [movieCard, setMovieCard] = useState([]);
@@ -16,8 +16,10 @@ function App() {
   let [filter, setFilter] = useState("popular");
   let [searchKey, setSearchKey] = useState("");
   let [searchedData, setSearchdData] = useState([]);
+  const [debouncedSearchKey, setDebouncedSearchKey] = useState();
+
   const [emoji, setEmoji] = useState("");
-  console.log(filter);
+  useDebounce(() => setDebouncedSearchKey(searchKey), 5000, [searchKey]);
 
   function searchValue(value) {
     setSearchKey(value);
@@ -30,8 +32,11 @@ function App() {
   }
 
   useEffect(() => {
+    // if (searchKey !== "") {
+    // searchMovies(setSearchdData, debouncedSearchKey);
+    // } else {
     getMovies(page, setMovieCard, filter);
-    searchMovies(setSearchdData, searchKey);
+    // }
     if (filter === "popular") {
       setEmoji("🔥"); // fire emoji
     } else if (filter === "upcoming") {
@@ -40,6 +45,10 @@ function App() {
       setEmoji("🌟"); // star emoji
     }
   }, [page, filter, searchKey]);
+
+  useEffect(() => {
+    searchMovies(setSearchdData, debouncedSearchKey);
+  }, [debouncedSearchKey]);
 
   function showMore() {
     if (page < page + 1) {
@@ -101,53 +110,91 @@ function App() {
       <div className="flex flex-row items-center justify-between">
         <Search click={searchValue} />
 
-        <Filter click={selectedValue} />
+        {searchKey === "" ? <Filter click={selectedValue} /> : <div></div>}
       </div>
 
-      <h1 className="  text-white mb-4 p-4 font-bold text-3xl capitalize">
-        {filter === "top_rated" ? "Top Rated" : filter}
-
-        {emoji}
-      </h1>
-
-      {/* for search babes */}
-      <div
-        className="grid grid-cols-4 gap-4 mb-6
+      {/* for search babes
+      <div>
+        <h1 className="  text-white mb-4 p-4 font-bold text-3xl capitalize">
+          Search Found {searchedData.length}
+        </h1>
+        <div
+          className="grid grid-cols-4 gap-4 mb-6
       "
-      >
-        {searchedData.map((movie) => (
-          <Card
-            key={movie.id}
-            title={movie.original_title}
-            language={movie.original_language}
-            image={movie.poster_path}
-            rating={movie.vote_average}
-            time={movie.release_date.split(`-`)[0]}
-          />
-        ))}
-      </div>
+        >
+          {searchedData.map((movie) => (
+            <Card
+              key={movie.id}
+              title={movie.original_title}
+              language={movie.original_language}
+              image={movie.poster_path}
+              rating={movie.vote_average}
+              time={movie.release_date.split(`-`)[0]}
+            />
+          ))}
+        </div>
+      </div> */}
 
-      <div
-        className="grid grid-cols-4 gap-4 mb-6
+      {searchKey === "" ? (
+        <div>
+          <h1 className="  text-white mb-4 p-4 font-bold text-3xl capitalize">
+            {filter === "top_rated" ? "Top Rated" : filter}
+
+            {emoji}
+          </h1>
+
+          <div
+            className="grid grid-cols-4 gap-4 mb-6
       "
-      >
-        {movieCard.map((movie) => (
-          <Card
-            key={movie.id}
-            title={movie.original_title}
-            language={movie.original_language}
-            image={movie.poster_path}
-            rating={movie.vote_average}
-            time={movie.release_date.split(`-`)[0]}
-          />
-        ))}
-      </div>
+          >
+            {movieCard.map((movie) => (
+              <Card
+                key={movie.id}
+                title={movie.original_title}
+                language={movie.original_language}
+                image={movie.poster_path}
+                rating={movie.vote_average}
+                time={
+                  movie.release_date ? movie.release_date.split("-")[0] : "N.A"
+                }
+              />
+            ))}
+          </div>
+        </div>
+      ) : (
+        <div>
+          <h1 className="  text-white mb-4 p-4 font-bold text-3xl capitalize">
+            Search Found {searchedData.length}
+          </h1>
+          <div
+            className="grid grid-cols-4 gap-4 mb-6
+      "
+          >
+            {searchedData.map((movie) => (
+              <Card
+                key={movie.id}
+                title={movie.original_title}
+                language={movie.original_language}
+                image={movie.poster_path}
+                rating={movie.vote_average}
+                time={
+                  movie.release_date ? movie.release_date.split("-")[0] : "N.A"
+                }
+              />
+            ))}
+          </div>
+        </div>
+      )}
 
-      <div className=" text-2xl text-center mb-4">
-        <button onClick={showMore} className="cursor-pointer">
-          Show More....
-        </button>
-      </div>
+      {searchKey === "" ? (
+        <div className=" text-2xl text-center mb-4">
+          <button onClick={showMore} className="cursor-pointer">
+            Show More....
+          </button>
+        </div>
+      ) : (
+        <div hidden></div>
+      )}
     </main>
   );
 }
