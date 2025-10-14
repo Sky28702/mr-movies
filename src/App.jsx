@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getMovies, searchMovies } from "./api/movies";
+import { getMovies, searchMovies, revenueMovies } from "./api/movies";
 import Search from "./components/Search";
 import Card from "./components/Card";
 import Filter from "./components/Filter";
@@ -13,13 +13,16 @@ import "./App.css";
 function App() {
   let [movieCard, setMovieCard] = useState([]);
   let [page, setPage] = useState(1);
+  // let [loading, setLoading] = useState("");
   let [filter, setFilter] = useState("popular");
   let [searchKey, setSearchKey] = useState("");
   let [searchedData, setSearchdData] = useState([]);
   const [debouncedSearchKey, setDebouncedSearchKey] = useState();
+  const [heroData, setHeroData] = useState([]);
 
   const [emoji, setEmoji] = useState("");
-  useDebounce(() => setDebouncedSearchKey(searchKey), 5000, [searchKey]);
+  useDebounce(() => setDebouncedSearchKey(searchKey), 1500, [searchKey]);
+  // study it ^ from docs later
 
   function searchValue(value) {
     setSearchKey(value);
@@ -37,6 +40,8 @@ function App() {
     // } else {
     getMovies(page, setMovieCard, filter);
     // }
+    revenueMovies(setHeroData);
+
     if (filter === "popular") {
       setEmoji("🔥"); // fire emoji
     } else if (filter === "upcoming") {
@@ -44,7 +49,7 @@ function App() {
     } else {
       setEmoji("🌟"); // star emoji
     }
-  }, [page, filter, searchKey]);
+  }, [page, filter]);
 
   useEffect(() => {
     searchMovies(setSearchdData, debouncedSearchKey);
@@ -60,39 +65,35 @@ function App() {
     <main className="text-white">
       <section className="p-4">
         {/* // ! HERO SECTION  */}
-        <div className="w-full relative p-6 rounded-4xl  ">
+        <div className="w-full relative p-6 rounded-4xl  " key={heroData.id}>
           <img
-            src="/Movie.png"
+            src={`https://image.tmdb.org/t/p/original/${heroData.backdrop_path}`}
+            // src={`https://image.tmdb.org/t/p/w500/${heroData.backdrop_path}`}
             className="absolute inset-0 w-full h-full opacity-70 object-cover rounded-4xl -z-10"
           />
           {/* // ! NOW TRENDING STARTS  */}
           <div className="backdrop-blur-md rounded-2xl py-1  max-w-36  text-center mb-32">
-            &#128293;Now Trending &nbsp;
+            &#128293;Top of all time &nbsp;
           </div>
 
           {/* // ! TAGS S PARENTS */}
           <div className="flex flex-row justify-start gap-4 mb-6">
             <div className="backdrop-blur-md  py-1 rounded-2xl   text-center px-2 ">
-              Animation
+              Best on Box office
             </div>
 
             <div className="backdrop-blur-md  rounded-2xl  py-1 px-2 text-center ">
-              Action
+              Top
             </div>
           </div>
 
           {/* // ! Title of Movie */}
           <div className="text-white text-[36px] font-semibold leading-10 mb-2">
-            <h1>Jujutsu Kaisen</h1>
-
-            <h1>Shibuya Incident - Ryomen Sukuna</h1>
+            {heroData.original_title}
           </div>
           {/* // ! Description of Movie */}
-          <div className="max-w-100 text-[18px] text-slate-300 mb-8">
-            <p>
-              The Shibuya Incident on October 31, 2018, alliance between Mahito
-              and Pseudo-Geto finally makes their move to seal Satoru Gojo.
-            </p>
+          <div className="max-w-100 text-[18px]  text-slate-300 mb-8">
+            <p>{heroData.overview}</p>
           </div>
 
           {/* // ! Buttons to interact */}
@@ -149,7 +150,7 @@ function App() {
           >
             {movieCard.map((movie) => (
               <Card
-                key={movie.id}
+                key={`filter-${movie.id}`}
                 title={movie.original_title}
                 language={movie.original_language}
                 image={movie.poster_path}
@@ -169,10 +170,11 @@ function App() {
           <div
             className="grid grid-cols-4 gap-4 mb-6
       "
+            // check out on ids later
           >
             {searchedData.map((movie) => (
               <Card
-                key={movie.id}
+                key={`search-${movie.id}`}
                 title={movie.original_title}
                 language={movie.original_language}
                 image={movie.poster_path}

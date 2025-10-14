@@ -7,7 +7,11 @@ function Card(props) {
         {/* // ! IMAGE SECTION  */}
         <div className="mb-2">
           <img
-            src={"https://image.tmdb.org/t/p/w500/" + props.image}
+            src={
+              props.image
+                ? `https://image.tmdb.org/t/p/w500/${props.image}`
+                : "/placeholder.png"
+            }
             className="rounded-2xl"
           ></img>
         </div>
