@@ -128,7 +128,7 @@ function App() {
           </div>
         </div>
       </section>
-      <div className="flex flex-row items-center justify-between">
+      <div className="flex flex-row items-center gap-2 justify-between">
         <Search click={searchValue} />
 
         {searchKey === "" ? <Filter click={selectedValue} /> : <div></div>}

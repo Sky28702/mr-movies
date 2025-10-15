@@ -1,8 +1,9 @@
 import axios from "axios";
+const API_KEY = import.meta.env.VITE_API_KEY;
 async function getMovies(page, setMovieCard, filter) {
   try {
     const res = await axios.get(
-      `https://api.themoviedb.org/3/movie/${filter}?api_key=434707e1ce537ca1f4315bddd0839d57&language=en-US&page=${page}`
+      `https://api.themoviedb.org/3/movie/${filter}?api_key=${API_KEY}&language=en-US&page=${page}`
     );
 
     setMovieCard((prevMovies) => [...prevMovies, ...res.data.results]);
@@ -14,7 +15,7 @@ async function getMovies(page, setMovieCard, filter) {
 async function searchMovies(setSearchedData, searchKey) {
   try {
     const res = await axios.get(
-      `https://api.themoviedb.org/3/search/movie?query=${searchKey}&api_key=434707e1ce537ca1f4315bddd0839d57`
+      `https://api.themoviedb.org/3/search/movie?query=${searchKey}&api_key=${API_KEY}`
     );
 
     setSearchedData(() => [...res.data.results]);
@@ -26,7 +27,7 @@ async function searchMovies(setSearchedData, searchKey) {
 async function revenueMovies(setHeroData) {
   try {
     const res = await axios.get(
-      `https://api.themoviedb.org/3/discover/movie?api_key=434707e1ce537ca1f4315bddd0839d57&sort_by=revenue.desc&page=1`
+      `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&sort_by=revenue.desc&page=1`
     );
     const result = [...res.data.results].slice(0, 4); // it will silce it down to upto 4
     const random = Math.floor(Math.random() * 4); // it will random a number from 1 to 4 and gonna sotre it in const random
@@ -40,7 +41,7 @@ async function revenueMovies(setHeroData) {
 async function getMovieDetails(id, setMovieDetails) {
   try {
     const res = await axios.get(
-      `https://api.themoviedb.org/3/movie/${id}?api_key=434707e1ce537ca1f4315bddd0839d57&language=en-US`
+      `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}&language=en-US`
     );
 
     setMovieDetails(res.data);
