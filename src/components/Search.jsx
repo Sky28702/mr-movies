@@ -1,7 +1,7 @@
 import { IconSearch } from "@tabler/icons-react";
 function Search({ click }) {
   return (
-    <section className="text-black p-4 mb-4">
+    <section className="text-black   mb-4">
       <form>
         <div className="  border  flex items-center bg-white border-black rounded-4xl">
           <span className="bg-white rounded-bl-4xl rounded-tl-4xl p-4">

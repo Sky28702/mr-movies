@@ -1,18 +1,28 @@
 import { IconStarFilled } from "@tabler/icons-react";
+import { useNavigate } from "react-router-dom";
 
 function Card(props) {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/view/${props.id}`); // navigate te page
+  };
   return (
-    <section className="p-4">
-      <div className="rounded-2xl w-64 h-full bg-slate-950 p-2 ">
+    <section className=" mb-6 ">
+      {/* <div className="rounded-2xl w-64 h-full bg-slate-950 p-2 "> */}
+      <div
+        className="rounded-2xl w-auto h-full bg-slate-950 p-2 cursor-pointer"
+        onClick={handleClick}
+      >
         {/* // ! IMAGE SECTION  */}
-        <div className="mb-2">
+        <div className="mb-2 flex justify-center-safe">
           <img
             src={
               props.image
                 ? `https://image.tmdb.org/t/p/w500/${props.image}`
                 : "/placeholder.png"
             }
-            className="rounded-2xl"
+            className="rounded-2xl "
           ></img>
         </div>
         {/* // ! Movie Title */}

@@ -37,4 +37,16 @@ async function revenueMovies(setHeroData) {
   }
 }
 
-export { getMovies, searchMovies, revenueMovies };
+async function getMovieDetails(id, setMovieDetails) {
+  try {
+    const res = await axios.get(
+      `https://api.themoviedb.org/3/movie/${id}?api_key=434707e1ce537ca1f4315bddd0839d57&language=en-US`
+    );
+
+    setMovieDetails(res.data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export { getMovies, searchMovies, revenueMovies, getMovieDetails };

@@ -1,6 +1,6 @@
 function Filter({ click }) {
   return (
-    <div className="flex p-4 items-center text-black">
+    <div className="flex items-center text-black">
       <select
         defaultValue="popular"
         className="bg-white rounded-[4px] h-12 outline-none p-1"

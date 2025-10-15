@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import React, { useRef } from "react";
 import { getMovies, searchMovies, revenueMovies } from "./api/movies";
 import Search from "./components/Search";
 import Card from "./components/Card";
@@ -9,8 +10,10 @@ import { IconPlayerPlayFilled } from "@tabler/icons-react";
 import { IconDownload } from "@tabler/icons-react";
 
 import "./App.css";
+import { useNavigate } from "react-router-dom";
 
 function App() {
+  const navigate = useNavigate();
   let [movieCard, setMovieCard] = useState([]);
   let [page, setPage] = useState(1);
   // let [loading, setLoading] = useState("");
@@ -61,9 +64,20 @@ function App() {
     }
   }
 
+  function viewClick() {
+    navigate(`/view/${heroData.id}`);
+  }
+
+  const handleScrollToBottom = () => {
+    window.scrollTo({
+      top: document.documentElement.scrollHeight,
+      behavior: "smooth", // optional for smooth scroll
+    });
+  };
+
   return (
-    <main className="text-white">
-      <section className="p-4">
+    <main className="text-white flex justify-center flex-col p-4">
+      <section className="mt-4 mb-4">
         {/* // ! HERO SECTION  */}
         <div className="w-full relative p-6 rounded-4xl  " key={heroData.id}>
           <img
@@ -98,12 +112,18 @@ function App() {
 
           {/* // ! Buttons to interact */}
           <div className="flex flex-row gap-4">
-            <button className="flex bg-white text-black text-[16px] rounded-4xl py-4 cursor-pointer px-8 gap-4">
+            <button
+              className="flex bg-white text-black text-[16px] rounded-4xl py-4 cursor-pointer px-8 gap-4"
+              onClick={viewClick}
+            >
               <IconPlayerPlayFilled /> View
             </button>
 
-            <button className="text-white border hover:bg-white hover:text-black border-white flex text-[16px] rounded-4xl py-4 px-8 cursor-pointer gap-4 transitionnpm">
-              <IconDownload stroke={2} /> Download
+            <button
+              className="text-white border hover:bg-white hover:text-black border-white flex text-[16px] rounded-4xl py-4 px-8 cursor-pointer gap-4 transitionnpm"
+              onClick={handleScrollToBottom}
+            >
+              <IconDownload stroke={2} /> Explore
             </button>
           </div>
         </div>
@@ -145,12 +165,13 @@ function App() {
           </h1>
 
           <div
-            className="grid grid-cols-4 gap-4 mb-6
+            className="grid  md:grid-cols-4  grid-cols-1 md:gap-4 mb-6  
       "
           >
             {movieCard.map((movie) => (
               <Card
                 key={`filter-${movie.id}`}
+                id={movie.id}
                 title={movie.original_title}
                 language={movie.original_language}
                 image={movie.poster_path}
@@ -164,17 +185,17 @@ function App() {
         </div>
       ) : (
         <div>
-          <h1 className="  text-white mb-4 p-4 font-bold text-3xl capitalize">
+          <h1 className="  text-white mb-4 font-bold text-3xl capitalize">
             Search Found {searchedData.length}
           </h1>
           <div
-            className="grid grid-cols-4 gap-4 mb-6
+            className="grid  md:grid-cols-4  grid-cols-1 md:gap-4 mb-6  
       "
-            // check out on ids later
           >
             {searchedData.map((movie) => (
               <Card
                 key={`search-${movie.id}`}
+                id={movie.id}
                 title={movie.original_title}
                 language={movie.original_language}
                 image={movie.poster_path}
