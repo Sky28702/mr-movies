@@ -12,6 +12,7 @@ function Filter({ click }) {
         <option value="popular">Popular</option>
         <option value="top_rated">Top Rated</option>
         <option value="upcoming">Upcoming</option>
+        <option value="now_playing">Now Playing</option>
       </select>
     </div>
   );

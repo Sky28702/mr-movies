@@ -49,8 +49,10 @@ function App() {
       setEmoji("🔥"); // fire emoji
     } else if (filter === "upcoming") {
       setEmoji("🎬"); // clapperboard emoji
-    } else {
+    } else if (Filter === "top_rated") {
       setEmoji("🌟"); // star emoji
+    } else {
+      setEmoji("📽️");
     }
   }, [page, filter]);
 
@@ -160,7 +162,11 @@ function App() {
       {searchKey === "" ? (
         <div>
           <h1 className="  text-white mb-4 p-4 font-bold text-3xl capitalize">
-            {filter === "top_rated" ? "Top Rated" : filter}
+            {filter === "top_rated"
+              ? "Top Rated"
+              : filter === "now_playing"
+              ? "Now Playing"
+              : filter}
 
             {emoji}
           </h1>
