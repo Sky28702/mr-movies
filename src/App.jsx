@@ -71,10 +71,11 @@ function App() {
   const handleScrollToBottom = () => {
     window.scrollTo({
       top: document.documentElement.scrollHeight,
-      behavior: "smooth", // optional for smooth scroll
+      behavior: "smooth",
     });
   };
 
+  // simple functions
   return (
     <main className="text-white flex justify-center flex-col p-4">
       <section className="mt-4 mb-4">
