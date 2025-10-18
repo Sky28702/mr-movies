@@ -77,10 +77,10 @@ function App() {
 
   // simple functions
   return (
-    <main className="text-white flex justify-center flex-col p-4">
+    <main className="text-white flex justify-center flex-col p-2">
       <section className="mt-4 mb-4">
         {/* // ! HERO SECTION  */}
-        <div className="w-full relative p-6 rounded-4xl  " key={heroData.id}>
+        <div className="w-full relative p-6 rounded-4xl " key={heroData.id}>
           <img
             src={`https://image.tmdb.org/t/p/original/${heroData.backdrop_path}`}
             // src={`https://image.tmdb.org/t/p/w500/${heroData.backdrop_path}`}
@@ -215,7 +215,7 @@ function App() {
       )}
 
       {searchKey === "" ? (
-        <div className=" text-2xl text-center mb-4">
+        <div className=" text-[20px] text-center mb-4">
           <button onClick={showMore} className="cursor-pointer">
             Show More....
           </button>
