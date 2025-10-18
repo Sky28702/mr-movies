@@ -61,9 +61,7 @@ function App() {
   }, [debouncedSearchKey]);
 
   function showMore() {
-    if (page < page + 1) {
-      setPage(page + 1);
-    }
+    setPage((prevPage) => prevPage + 1);
   }
 
   function viewClick() {
