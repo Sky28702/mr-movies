@@ -173,9 +173,9 @@ function App() {
             className="grid  md:grid-cols-4  grid-cols-1 md:gap-4 mb-6  
       "
           >
-            {movieCard.map((movie) => (
+            {movieCard.map((movie, index) => (
               <Card
-                key={`filter-${movie.id}`}
+                key={`filter-${movie.id}-${index}`}
                 id={movie.id}
                 title={movie.original_title}
                 language={movie.original_language}
@@ -197,9 +197,9 @@ function App() {
             className="grid  md:grid-cols-4  grid-cols-1 md:gap-4 mb-6  
       "
           >
-            {searchedData.map((movie) => (
+            {searchedData.map((movie, index) => (
               <Card
-                key={`search-${movie.id}`}
+                key={`search-${movie.id}-${index}`}
                 id={movie.id}
                 title={movie.original_title}
                 language={movie.original_language}
