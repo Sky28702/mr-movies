@@ -13,12 +13,15 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./index.css";
 import App from "./App.jsx";
 import ViewMovie from "./view/ViewMovie.jsx"; // Updated path
+import { StrictMode } from "react";
 
 createRoot(document.getElementById("root")).render(
-  <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<App />} />
-      <Route path="/view/:id" element={<ViewMovie />} />
-    </Routes>
-  </BrowserRouter>
+  <StrictMode>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<App />} />
+        <Route path="/view/:id" element={<ViewMovie />} />
+      </Routes>
+    </BrowserRouter>
+  </StrictMode>
 );
