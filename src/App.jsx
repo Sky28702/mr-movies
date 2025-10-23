@@ -44,6 +44,7 @@ function App() {
     getMovies(page, setMovieCard, filter);
     // }
     revenueMovies(setHeroData);
+    //slow
 
     if (filter === "popular") {
       setEmoji("🔥"); // fire emoji
