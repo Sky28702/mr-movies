@@ -40,7 +40,7 @@ function App() {
   useEffect(() => {
     // if (searchKey !== "") {
     // searchMovies(setSearchdData, debouncedSearchKey);
-    // } else {
+    // } else { e
     getMovies(page, setMovieCard, filter);
     // }
     revenueMovies(setHeroData);
