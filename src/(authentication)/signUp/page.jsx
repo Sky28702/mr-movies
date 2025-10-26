@@ -165,7 +165,7 @@ function SignUp() {
 
           <p className="mb-4">
             Already have an account?{" "}
-            <Link href="/sign-in">
+            <Link to="/signin">
               <span className="cursor-pointer text-blue-400">Login</span>
             </Link>
           </p>
