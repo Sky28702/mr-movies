@@ -56,4 +56,17 @@ async function signUp(data, setRegisterSuccess, setSuccessState) {
   setSuccessState(res.data.success);
 }
 
-export { getMovies, searchMovies, revenueMovies, getMovieDetails, signUp };
+async function login(data, setError, setErrorMessage) {
+  const res = await axios.post(`http://localhost:8000/signin`, data);
+  setError(res.data.success);
+  setErrorMessage(res.data.message);
+}
+
+export {
+  getMovies,
+  searchMovies,
+  revenueMovies,
+  getMovieDetails,
+  signUp,
+  login,
+};
