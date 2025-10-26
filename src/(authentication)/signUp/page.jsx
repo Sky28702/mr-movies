@@ -45,7 +45,9 @@ function SignUp() {
     // let result = await signup(formData);
     // router.push("/sign-in");
     // console.log(result);
-    signUp(data, setRegisterSuccess, setSuccessState);
+    await signUp(data, setRegisterSuccess, setSuccessState);
+
+    navigate("/signin");
   }
 
   return (

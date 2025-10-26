@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { toast, Toaster } from "react-hot-toast";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { login } from "../../api/movies";
 
 function SignIn() {
   const {
@@ -22,19 +23,20 @@ function SignIn() {
     }
   }, [navigate]);
 
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
   async function onSubmit(data) {
-    // // await console.log(data);
-    // let result = await signin(data);
-    // if (result.success) {
-    //   localStorage.setItem("Current User", JSON.stringify(result.user));
-    //   router.push("/");
-    // }
-    // if (result.success) {
-    //   setError(result.success);
-    // } else {
-    //   setError(!result.success);
-    // }
-    // setErrorMessage(result.message);
+    let result = await login(data, setError, setErrorMessage);
+
+    console.log("Login result:", result);
+    if (error === true) {
+      //set current user
+      localStorage.setItem("Current User", JSON.stringify(result.data.user));
+
+      //navigate to home
+      navigate("/");
+    }
   }
 
   return (
@@ -71,13 +73,13 @@ function SignIn() {
           </p>
         )}
 
-        {/* <p
+        <p
           className={`text-center mb-4 ${
-            error ? "text-red-500" : "text-green-500"
+            error === false ? "text-red-500" : "text-green-500"
           }`}
         >
           {errorMessage}
-        </p> */}
+        </p>
 
         <p className="mb-6">
           Don't have an account?{" "}
