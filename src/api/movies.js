@@ -50,4 +50,10 @@ async function getMovieDetails(id, setMovieDetails) {
   }
 }
 
-export { getMovies, searchMovies, revenueMovies, getMovieDetails };
+async function signUp(data, setRegisterSuccess, setSuccessState) {
+  const res = await axios.post(`http://localhost:8000/signup`, data);
+  setRegisterSuccess(res.data.message);
+  setSuccessState(res.data.success);
+}
+
+export { getMovies, searchMovies, revenueMovies, getMovieDetails, signUp };

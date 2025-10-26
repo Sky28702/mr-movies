@@ -13,7 +13,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./index.css";
 import App from "./App.jsx";
 import ViewMovie from "./view/ViewMovie.jsx"; // Updated path
-import SignUp from "./signUp/page.jsx";
+import SignUp from "./(authentication)/signUp/page.jsx";
 import { StrictMode } from "react";
 
 createRoot(document.getElementById("root")).render(
