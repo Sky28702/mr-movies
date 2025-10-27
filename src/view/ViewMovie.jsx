@@ -1,10 +1,14 @@
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { getMovieDetails } from "../api/movies";
 import { IconStarFilled } from "@tabler/icons-react";
+import { IconHeart } from "@tabler/icons-react";
+import { IconHeartFilled } from "@tabler/icons-react";
 
 function ViewMovie() {
   const [movieDetails, setMovieDetails] = useState(null);
+  const [isClick, setIsClick] = useState(false);
+
   const { id } = useParams();
 
   useEffect(() => {
@@ -17,6 +21,10 @@ function ViewMovie() {
         <h1 className="text-4xl">Loading...</h1>
       </div>
     );
+  }
+
+  function handleClick() {
+    setIsClick(!isClick);
   }
 
   return (
@@ -42,7 +50,7 @@ function ViewMovie() {
               <p>{movieDetails.overview}</p>
             </div>
 
-            <div className="flex flex-col md:flex-row gap-4 md:gap-10 text-white font-semibold">
+            <div className="flex flex-col md:flex-row gap-4 md:gap-10 text-white font-semibold mb-auto">
               <div className="flex items-center gap-2">
                 <span className="text-amber-300">
                   <IconStarFilled />
@@ -54,6 +62,16 @@ function ViewMovie() {
 
               <div>{movieDetails.release_date}</div>
             </div>
+            <button
+              className="text-pink-600 mt-auto ml-auto cursor-pointer"
+              onClick={handleClick}
+            >
+              {isClick === true ? (
+                <IconHeartFilled />
+              ) : (
+                <IconHeart stroke={2} />
+              )}
+            </button>
           </div>
         </div>
       </div>

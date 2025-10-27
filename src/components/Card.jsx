@@ -11,11 +11,11 @@ function Card(props) {
     <section className=" mb-6 ">
       {/* <div className="rounded-2xl w-64 h-full bg-slate-950 p-2 "> */}
       <div
-        className="rounded-2xl w-auto h-full bg-slate-950 p-2 cursor-pointer"
+        className="rounded-2xl w-auto h-full bg-slate-950 p-2 cursor-pointer flex flex-col grow"
         onClick={handleClick}
       >
         {/* // ! IMAGE SECTION  */}
-        <div className="mb-2 flex justify-center-safe">
+        <div className="mb-2 flex   justify-center-safe">
           <img
             src={
               props.image
@@ -26,9 +26,9 @@ function Card(props) {
           ></img>
         </div>
         {/* // ! Movie Title */}
-        <div className="font-semibold mb-2">{props.title}</div>
+        <div className="font-semibold mb-2 ">{props.title}</div>
         {/* // ! PARENT OF RATIN ETC */}
-        <div className="flex flex-rows gap-6 items-center ">
+        <div className="flex flex-rows mt-auto gap-6 items-center ">
           {/* // ! RATING */}
           <div className="flex items-center">
             <span className="text-amber-300">
