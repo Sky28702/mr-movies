@@ -69,7 +69,7 @@ function ViewMovie() {
               <div>{movieDetails.release_date}</div>
             </div>
             <button
-              className="text-pink-600 mt-auto ml-auto cursor-pointer"
+              className="text-pink-600 mt-auto  ml-auto cursor-pointer"
               onClick={handleClick}
             >
               {isClick === true ? (

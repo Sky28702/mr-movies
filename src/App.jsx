@@ -81,7 +81,10 @@ function App() {
     <main className="text-white flex justify-center flex-col p-2">
       <section className="mt-4 mb-4">
         {/* // ! HERO SECTION  */}
-        <div className="w-full relative p-6 rounded-4xl " key={heroData.id}>
+        <div
+          className=" w-[100%]  relative p-4 md:p-6 rounded-4xl "
+          key={heroData.id}
+        >
           <img
             src={`https://image.tmdb.org/t/p/original/${heroData.backdrop_path}`}
             // src={`https://image.tmdb.org/t/p/w500/${heroData.backdrop_path}`}
@@ -122,7 +125,7 @@ function App() {
             </button>
 
             <button
-              className="text-white border hover:bg-white hover:text-black border-white flex text-[16px] rounded-4xl py-4 px-8 cursor-pointer gap-4 transitionnpm"
+              className="text-white border hover:bg-white hover:text-black border-white flex text-[16px] rounded-4xl py-4 px-8 cursor-pointer  transitionnpm"
               onClick={handleScrollToBottom}
             >
               <IconDownload stroke={2} /> Explore
@@ -130,10 +133,11 @@ function App() {
           </div>
         </div>
       </section>
-      <div className="flex flex-row items-center gap-2 justify-between">
+      <div className="flex flex-wrap flex-row mb-2 justify-between items-center ">
         <Search click={searchValue} />
-
-        {searchKey === "" ? <Filter click={selectedValue} /> : <div></div>}
+        <div className="">
+          {searchKey === "" ? <Filter click={selectedValue} /> : <div></div>}
+        </div>
       </div>
 
       {/* for search babes
