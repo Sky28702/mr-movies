@@ -56,6 +56,7 @@ function ViewMovie() {
               <p>{movieDetails.overview}</p>
             </div>
 
+            {/* <div className=" flex flex-row justify-between items-center"> */}
             <div className="flex flex-col md:flex-row gap-4 md:gap-10 text-white font-semibold mb-auto">
               <div className="flex items-center gap-2">
                 <span className="text-amber-300">
@@ -78,6 +79,7 @@ function ViewMovie() {
                 <IconHeart stroke={2} />
               )}
             </button>
+            {/* </div> */}
           </div>
         </div>
       </div>
