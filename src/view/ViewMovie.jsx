@@ -6,9 +6,12 @@ import { IconHeart } from "@tabler/icons-react";
 import { IconHeartFilled } from "@tabler/icons-react";
 import { useNavigate } from "react-router-dom";
 
+import { fav } from "../api/movies";
+
 function ViewMovie() {
   const [movieDetails, setMovieDetails] = useState(null);
   const [isClick, setIsClick] = useState(false);
+  const [userId, setUserId] = useState(null);
 
   const { id } = useParams();
   const navigate = useNavigate();
@@ -16,6 +19,8 @@ function ViewMovie() {
   useEffect(() => {
     getMovieDetails(id, setMovieDetails);
   }, [id]);
+
+  const [movieId, setMovieId] = useState(id);
 
   if (!movieDetails) {
     return (
@@ -27,9 +32,14 @@ function ViewMovie() {
 
   function handleClick() {
     const localData = localStorage.getItem("Current User");
+    const user = JSON.parse(localData);
+
+    setUserId(user._id);
+
     if (!localData) {
       navigate("/signin");
     }
+    fav(userId, id);
     setIsClick(!isClick);
   }
 

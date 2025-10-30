@@ -63,6 +63,15 @@ async function login(data, setError, setErrorMessage) {
   return res;
 }
 
+async function fav(defaultuserId, defaultmovieId) {
+  const res = await axios.post(`http://localhost:8000//modfav`, {
+    userId: defaultuserId,
+    movieId: defaultmovieId,
+  });
+
+  return res;
+}
+
 export {
   getMovies,
   searchMovies,
@@ -70,4 +79,5 @@ export {
   getMovieDetails,
   signUp,
   login,
+  fav,
 };
