@@ -22,7 +22,7 @@ function ViewMovie() {
     if (localData) {
       const user = JSON.parse(localData);
 
-      setUserId(user._id);
+      setUserId(user.id);
     }
   }, [id]);
 
@@ -38,9 +38,10 @@ function ViewMovie() {
     const localData = localStorage.getItem("Current User");
     if (!localData) {
       navigate("/signin");
+    } else {
+      fav(userId, id);
+      setIsClick(!isClick);
     }
-    fav(userId, id);
-    setIsClick(!isClick);
   }
 
   return (

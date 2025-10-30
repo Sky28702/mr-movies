@@ -66,7 +66,7 @@ async function login(data, setError, setErrorMessage) {
 async function fav(defaultuserId, defaultmovieId) {
   const res = await axios.post(`http://localhost:8000/modfav`, {
     userId: defaultuserId,
-    movieId: defaultmovieId,
+    movieId: parseInt(defaultmovieId),
   });
 
   return res;
