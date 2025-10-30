@@ -18,9 +18,13 @@ function ViewMovie() {
 
   useEffect(() => {
     getMovieDetails(id, setMovieDetails);
-  }, [id]);
+    const localData = localStorage.getItem("Current User");
+    if (localData) {
+      const user = JSON.parse(localData);
 
-  const [movieId, setMovieId] = useState(id);
+      setUserId(user._id);
+    }
+  }, [id]);
 
   if (!movieDetails) {
     return (
@@ -32,10 +36,6 @@ function ViewMovie() {
 
   function handleClick() {
     const localData = localStorage.getItem("Current User");
-    const user = JSON.parse(localData);
-
-    setUserId(user._id);
-
     if (!localData) {
       navigate("/signin");
     }

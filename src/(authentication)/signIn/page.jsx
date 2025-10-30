@@ -30,11 +30,11 @@ function SignIn() {
     let result = await login(data, setError, setErrorMessage);
 
     console.log("Login result:", result);
-    if (error === true) {
-      //set current user
+    if (result.data.success === true) {
+      // Set current user
       localStorage.setItem("Current User", JSON.stringify(result.data.user));
 
-      //navigate to home
+      // Navigate to home
       navigate("/");
     }
   }
