@@ -63,13 +63,14 @@ async function login(data, setError, setErrorMessage) {
   return res;
 }
 
-async function fav(defaultuserId, defaultmovieId) {
-  const res = await axios.post(`http://localhost:8000/modfav`, {
-    userId: defaultuserId,
-    movieId: parseInt(defaultmovieId),
-  });
+async function fav(data, setIsClick) {
+  const res = await axios.post(`http://localhost:8000/modfav`, data);
+  setIsClick(res.data.click);
+}
 
-  return res;
+async function likeOnFav(data, setIsClick) {
+  const res = await axios.post(`http://localhost:8000/likemovie`, data);
+  setIsClick(res.data.click);
 }
 
 export {
@@ -80,4 +81,5 @@ export {
   signUp,
   login,
   fav,
+  likeOnFav,
 };
