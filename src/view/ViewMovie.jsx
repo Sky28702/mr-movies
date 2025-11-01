@@ -25,11 +25,11 @@ function ViewMovie() {
       const user = JSON.parse(localData);
 
       setUserId(user.id);
-      const data = { movieId: id, userId };
+      const data = { movieId: id, userId: user.id };
       setIsLoading(true);
       likeOnFav(data, setIsClick).finally(() => setIsLoading(false));
     }
-  }, [id, userId]);
+  }, [id]);
 
   if (!movieDetails) {
     return (
