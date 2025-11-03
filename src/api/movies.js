@@ -23,7 +23,7 @@ async function searchMovies(setSearchedData, searchKey) {
     console.error(error);
   }
 }
-// fix it
+// fi
 async function revenueMovies(setHeroData) {
   try {
     const res = await axios.get(
