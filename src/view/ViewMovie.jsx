@@ -26,10 +26,9 @@ function ViewMovie() {
       setUserId(user.id);
     }
 
-    const data = {
-      movieId: id,
-      userId: userId,
-    };
+    if (!userId) return;
+
+    const data = { movieId: id, userId };
 
     async function statusOfLike() {
       try {
