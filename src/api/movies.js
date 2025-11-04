@@ -65,11 +65,13 @@ async function login(data, setError, setErrorMessage) {
 
 async function fav(data, setIsClick) {
   const res = await axios.post(`http://localhost:8000/modfav`, data);
+
   setIsClick(res.data.click);
 }
 
-async function likeOnFav(data, setIsClick) {
-  const res = await axios.post(`http://localhost:8000/likemovie`, data);
+async function statusLike(data, setIsClick) {
+  const res = await axios.post(`http://localhost:8000/statusLike`, data);
+
   setIsClick(res.data.click);
 }
 
@@ -81,5 +83,5 @@ export {
   signUp,
   login,
   fav,
-  likeOnFav,
+  statusLike,
 };

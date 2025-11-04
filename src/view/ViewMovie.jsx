@@ -5,15 +5,14 @@ import { IconStarFilled } from "@tabler/icons-react";
 import { IconHeart } from "@tabler/icons-react";
 import { IconHeartFilled } from "@tabler/icons-react";
 import { useNavigate } from "react-router-dom";
-
+import { statusLike } from "../api/movies";
 import { fav } from "../api/movies";
-import { likeOnFav } from "../api/movies";
 
 function ViewMovie() {
   const [movieDetails, setMovieDetails] = useState(null);
   const [isClick, setIsClick] = useState(false);
   const [userId, setUserId] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const { id } = useParams();
   const navigate = useNavigate();
@@ -25,11 +24,24 @@ function ViewMovie() {
       const user = JSON.parse(localData);
 
       setUserId(user.id);
-      const data = { movieId: id, userId: user.id };
-      setIsLoading(true);
-      likeOnFav(data, setIsClick).finally(() => setIsLoading(false));
     }
-  }, [id]);
+
+    const data = {
+      movieId: id,
+      userId: userId,
+    };
+
+    async function statusOfLike() {
+      try {
+        setLoading(true);
+        await statusLike(data, setIsClick);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    statusOfLike();
+  }, [id, userId]);
 
   if (!movieDetails) {
     return (
@@ -40,22 +52,21 @@ function ViewMovie() {
   }
 
   async function handleClick() {
-    const localData = localStorage.getItem("Current User");
-    if (!localData) {
-      navigate("/signin");
-      return;
-    }
-
-    const data = {
-      movieId: id,
-      userId: userId,
-    };
-
     try {
-      setIsLoading(true);
+      const localData = localStorage.getItem("Current User");
+      if (!localData) {
+        navigate("/signin");
+        return;
+      }
+      const data = {
+        movieId: id,
+        userId: userId,
+      };
+
+      setLoading(true);
       await fav(data, setIsClick);
     } finally {
-      setIsLoading(false);
+      setLoading(false);
     }
   }
 
@@ -98,17 +109,16 @@ function ViewMovie() {
             <button
               className="text-pink-600 mt-auto  ml-auto cursor-pointer"
               onClick={handleClick}
-              disabled={isLoading}
+              disabled={loading === true}
             >
-              {isLoading ? (
+              {loading == true ? (
                 <div className="animate-spin w-6 h-6 border-2 border-pink-600 border-t-transparent rounded-full"></div>
-              ) : isClick ? (
+              ) : isClick === true ? (
                 <IconHeartFilled />
               ) : (
                 <IconHeart stroke={2} />
               )}
             </button>
-            {/* </div> */}
           </div>
         </div>
       </div>
