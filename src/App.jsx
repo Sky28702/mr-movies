@@ -52,6 +52,8 @@ function App() {
       setEmoji("🎬"); // clapperboard emoji
     } else if (Filter === "top_rated") {
       setEmoji("🌟"); // star emoji
+    } else if (filter === "favourite") {
+      setEmoji("❤️");
     } else {
       setEmoji("📽️");
     }
@@ -139,28 +141,6 @@ function App() {
           {searchKey === "" ? <Filter click={selectedValue} /> : <div></div>}
         </div>
       </div>
-
-      {/* for search babes
-      <div>
-        <h1 className="  text-white mb-4 p-4 font-bold text-3xl capitalize">
-          Search Found {searchedData.length}
-        </h1>
-        <div
-          className="grid grid-cols-4 gap-4 mb-6
-      "
-        >
-          {searchedData.map((movie) => (
-            <Card
-              key={movie.id}
-              title={movie.original_title}
-              language={movie.original_language}
-              image={movie.poster_path}
-              rating={movie.vote_average}
-              time={movie.release_date.split(`-`)[0]}
-            />
-          ))}
-        </div>
-      </div> */}
 
       {searchKey === "" ? (
         <div>

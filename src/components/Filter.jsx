@@ -6,13 +6,11 @@ function Filter({ click }) {
         className="bg-white rounded-[4px] h-12 outline-none p-1"
         onChange={(e) => click(e.target.value)}
       >
-        {/* <option value="" disabled className="hidden">
-          Filter By
-        </option> */}
         <option value="popular">Popular</option>
         <option value="top_rated">Top Rated</option>
         <option value="upcoming">Upcoming</option>
         <option value="now_playing">Now Playing</option>
+        <option value="favourite">Now Playing</option>
       </select>
     </div>
   );
