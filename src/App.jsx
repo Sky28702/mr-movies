@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import React, { useRef } from "react";
-import { getMovies, searchMovies, revenueMovies } from "./api/movies";
+import { getMovies, searchMovies, revenueMovies, favMovie } from "./api/movies";
+
 import Search from "./components/Search";
 import Card from "./components/Card";
 import Filter from "./components/Filter";
@@ -16,7 +17,7 @@ function App() {
   const navigate = useNavigate();
   let [movieCard, setMovieCard] = useState([]);
   let [page, setPage] = useState(1);
-  // let [loading, setLoading] = useState("");
+
   let [filter, setFilter] = useState("popular");
   let [searchKey, setSearchKey] = useState("");
   let [searchedData, setSearchdData] = useState([]);
@@ -38,13 +39,22 @@ function App() {
   }
 
   useEffect(() => {
-    // if (searchKey !== "") {
-    // searchMovies(setSearchdData, debouncedSearchKey);
-    // } else { e
+    const localData = localStorage.getItem("Current User");
+    let userId = null;
+
+    if (localData) {
+      const user = JSON.parse(localData);
+      userId = user?.id || null;
+    }
+
+    const data = { userId };
+
     getMovies(page, setMovieCard, filter);
-    // }
+
     revenueMovies(setHeroData);
-    //slow
+    if (filter === "favourite") {
+      const favMovies = favMovie(data);
+    }
 
     if (filter === "popular") {
       setEmoji("🔥"); // fire emoji
@@ -89,7 +99,6 @@ function App() {
         >
           <img
             src={`https://image.tmdb.org/t/p/original/${heroData.backdrop_path}`}
-            // src={`https://image.tmdb.org/t/p/w500/${heroData.backdrop_path}`}
             className="absolute inset-0 w-full h-full opacity-70 object-cover rounded-4xl -z-10"
           />
           {/* // ! NOW TRENDING STARTS  */}

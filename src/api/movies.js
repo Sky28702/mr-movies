@@ -75,6 +75,11 @@ async function statusLike(data, setIsClick) {
   setIsClick(res.data.click);
 }
 
+async function favMovie(data) {
+  const res = await axios.post(`http://localhost:8000/readFavMovies`, data);
+  return res;
+}
+
 export {
   getMovies,
   searchMovies,
@@ -84,4 +89,5 @@ export {
   login,
   fav,
   statusLike,
+  favMovie,
 };

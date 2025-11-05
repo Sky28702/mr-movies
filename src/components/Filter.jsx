@@ -10,7 +10,7 @@ function Filter({ click }) {
         <option value="top_rated">Top Rated</option>
         <option value="upcoming">Upcoming</option>
         <option value="now_playing">Now Playing</option>
-        <option value="favourite">Now Playing</option>
+        <option value="favourite">Favourite</option>
       </select>
     </div>
   );
