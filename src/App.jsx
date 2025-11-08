@@ -88,7 +88,7 @@ function App() {
     });
   };
 
-  // simple functions s
+  // simple functions sa
   return (
     <main className="text-white flex justify-center flex-col p-2">
       <section className="mt-4 mb-4">
