@@ -37,7 +37,7 @@ function App() {
     setPage(1);
     setMovieCard([]);
   }
-  // ko zz
+  // ko 
   useEffect(() => {
     const localData = localStorage.getItem("Current User");
     let userId = null;
