@@ -23,6 +23,7 @@ function App() {
   let [searchedData, setSearchdData] = useState([]);
   const [debouncedSearchKey, setDebouncedSearchKey] = useState();
   const [heroData, setHeroData] = useState([]);
+  let [favMovieData, setFavMovieData] = useState([]);
 
   const [emoji, setEmoji] = useState("");
   useDebounce(() => setDebouncedSearchKey(searchKey), 1500, [searchKey]);
@@ -54,8 +55,15 @@ function App() {
     revenueMovies(setHeroData);
     async function favData() {
       if (filter === "favourite") {
-        const favMovies = await favMovie(data);
-        console.log(favMovies.data.favourites);
+        const localData = localStorage.getItem("Current User");
+        if (!localData) {
+          navigate("/signin");
+          return;
+        } else {
+          const favMovies = await favMovie(data);
+          // console.log(favMovies.data.favourites);
+          setFavMovieData(favMovies.data.favourites);
+        }
       }
     }
     favData();
@@ -170,19 +178,23 @@ function App() {
             className="grid  md:grid-cols-4  grid-cols-1 md:gap-4 mb-6  
       "
           >
-            {movieCard.map((movie, index) => (
-              <Card
-                key={`filter-${movie.id}-${index}`}
-                id={movie.id}
-                title={movie.original_title}
-                language={movie.original_language}
-                image={movie.poster_path}
-                rating={movie.vote_average}
-                time={
-                  movie.release_date ? movie.release_date.split("-")[0] : "N.A"
-                }
-              />
-            ))}
+            {(filter === "favourite" ? favMovieData : movieCard).map(
+              (movie, index) => (
+                <Card
+                  key={`filter-${movie.id || movie.movieId}-${index}`}
+                  id={movie.id || movie.movieId}
+                  title={movie.original_title || movie.movieName}
+                  language={movie.original_language || movie.movieLanguage}
+                  image={movie.poster_path || movie.moviePoster}
+                  rating={movie.vote_average || movie.movieRate}
+                  time={
+                    movie.release_date
+                      ? movie.release_date.split("-")[0]
+                      : movie.movieYear || "N.A"
+                  }
+                />
+              )
+            )}
           </div>
         </div>
       ) : (
@@ -214,7 +226,7 @@ function App() {
       {searchKey === "" ? (
         <div className=" text-[20px] text-center mb-4">
           <button onClick={showMore} className="cursor-pointer">
-            Show More....
+            Show More...
           </button>
         </div>
       ) : (
