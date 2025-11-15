@@ -52,10 +52,13 @@ function App() {
     getMovies(page, setMovieCard, filter);
 
     revenueMovies(setHeroData);
-    if (filter === "favourite") {
-      const favMovies = favMovie(data);
+    async function favData() {
+      if (filter === "favourite") {
+        const favMovies = await favMovie(data);
+        console.log(favMovies.data.favourites);
+      }
     }
-
+    favData();
     if (filter === "popular") {
       setEmoji("🔥"); // fire emoji
     } else if (filter === "upcoming") {

@@ -2,11 +2,15 @@ import axios from "axios";
 const API_KEY = import.meta.env.VITE_API_KEY;
 async function getMovies(page, setMovieCard, filter) {
   try {
-    const res = await axios.get(
-      `https://api.themoviedb.org/3/movie/${filter}?api_key=${API_KEY}&language=en-US&page=${page}`
-    );
+    if (filter === "favourite") {
+      console.log(`just a dummy`);
+    } else {
+      const res = await axios.get(
+        `https://api.themoviedb.org/3/movie/${filter}?api_key=${API_KEY}&language=en-US&page=${page}`
+      );
 
-    setMovieCard((prevMovies) => [...prevMovies, ...res.data.results]);
+      setMovieCard((prevMovies) => [...prevMovies, ...res.data.results]);
+    }
   } catch (error) {
     console.error(error);
   }
