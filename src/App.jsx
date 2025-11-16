@@ -61,7 +61,7 @@ function App() {
           return;
         } else {
           const favMovies = await favMovie(data);
-          // console.log(favMovies.data.favourites);
+          // console.log(favMovies.data.favourites);s
           setFavMovieData(favMovies.data.favourites);
         }
       }
