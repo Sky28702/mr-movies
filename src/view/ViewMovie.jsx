@@ -7,6 +7,7 @@ import { IconHeartFilled } from "@tabler/icons-react";
 import { useNavigate } from "react-router-dom";
 import { statusLike } from "../api/movies";
 import { fav } from "../api/movies";
+import { viewCount } from "../api/movies";
 
 function ViewMovie() {
   const [movieDetails, setMovieDetails] = useState(null);
@@ -16,6 +17,24 @@ function ViewMovie() {
 
   const { id } = useParams();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    function sleep(ms) {
+      return new Promise((resolve) => setTimeout(resolve, ms));
+    }
+
+    async function count() {
+      await sleep(5000);
+      const localData = localStorage.getItem("Current User");
+      if (localData) {
+        const user = JSON.parse(localData);
+        const data = { movieId: id, userId: user.id };
+        await viewCount(data);
+      }
+    }
+
+    count();
+  }, [id]);
 
   useEffect(() => {
     getMovieDetails(id, setMovieDetails);

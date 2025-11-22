@@ -84,6 +84,11 @@ async function favMovie(data) {
   return res;
 }
 
+async function viewCount(data) {
+  const res = await axios.post(`http://localhost:8000/viewCount`, data);
+  return res;
+}
+
 export {
   getMovies,
   searchMovies,
@@ -94,4 +99,5 @@ export {
   fav,
   statusLike,
   favMovie,
+  viewCount,
 };
